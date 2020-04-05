@@ -5,6 +5,8 @@ import 'package:pokedex/models/pokeApi.dart';
 import 'package:pokedex/pages/home_page/widgets/app_bar_home.dart';
 import 'package:pokedex/stores/pokeapi.dart';
 
+import 'widgets/pokemon_gridlist.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,7 @@ class HomePage extends StatelessWidget {
                         builder: (BuildContext context) {
                           PokeApi _pokeApi = pokeAPiStore.pokeApi;
                           return (_pokeApi != null)
-                              ? ListView.builder(
-                                  itemCount: _pokeApi.pokemon.length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                      title: Text(_pokeApi.pokemon[index].name),
-                                    );
-                                  },
-                                )
+                              ? PokemonGridList(_pokeApi)
                               : Center(
                                   child: CircularProgressIndicator(),
                                 );
