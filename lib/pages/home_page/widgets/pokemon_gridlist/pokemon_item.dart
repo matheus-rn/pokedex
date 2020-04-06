@@ -44,21 +44,26 @@ class PokemonItem extends StatelessWidget {
                       "images/${this.pokemon.num}.png",
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 15, left: 10),
-            child: Text(
-              this.pokemon.name.trim(),
-              style: TextStyle(
-                fontFamily: 'Google',
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: Colors.white,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 15, left: 10),
+                child: Text(
+                  this.pokemon.name.trim(),
+                  style: TextStyle(
+                    fontFamily: 'Google',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 45, left: 10),
-            child: buildBoxTypes(this.pokemon.type),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, left: 10),
+                child: buildBoxTypes(this.pokemon.type),
+              ),
+            ],
           ),
         ],
       ),
