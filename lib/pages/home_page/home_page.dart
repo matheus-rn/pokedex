@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/models/pokeApi.dart';
-import 'package:pokedex/pages/home_page/widgets/app_bar_home.dart';
 import 'package:pokedex/stores/pokeapi.dart';
-
-import 'widgets/pokemon_gridlist.dart';
+import 'widgets/app_bar_home/app_bar_home.dart';
+import 'widgets/pokemon_gridlist/pokemon_gridlist.dart';
 
 class HomePage extends StatelessWidget {
   @override

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pokedex/models/pokeApi.dart';
-import 'package:pokedex/stores/pokeapi.dart';
+
+import 'pokemon_item.dart';
 
 class PokemonGridList extends StatelessWidget {
   final PokeApi pokeApi;
@@ -10,15 +11,13 @@ class PokemonGridList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PokeApiStore pokeAPiStore = PokeApiStore();
-
     return AnimationLimiter(
       child: GridView.builder(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(12),
         addAutomaticKeepAlives: true,
-        gridDelegate:
-            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, childAspectRatio: 1.4),
         itemCount: this.pokeApi.pokemon.length,
         itemBuilder: (context, index) {
           return AnimationConfiguration.staggeredGrid(
@@ -28,20 +27,8 @@ class PokemonGridList extends StatelessWidget {
             child: ScaleAnimation(
               child: GestureDetector(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Stack(
-                      children: <Widget>[
-                        pokeAPiStore.getImage(pokeApi.pokemon[index].num),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
-                  ),
+                  padding: const EdgeInsets.all(5.0),
+                  child: PokemonItem(this.pokeApi.pokemon[index]),
                 ),
                 onTap: () {},
               ),
