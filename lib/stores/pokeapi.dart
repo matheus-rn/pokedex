@@ -12,19 +12,25 @@ class PokeApiStore = _PokeApiStoreBase with _$PokeApiStore;
 
 abstract class _PokeApiStoreBase with Store {
   @observable
-  PokeApi pokeApi;
+  PokeApi _pokeApi;
+
+  PokeApi get getPokeApi => _pokeApi;
+
+  set setPokeApi(PokeApi pokeApi) {
+    _pokeApi = pokeApi;
+  }
 
   @action
   getPokemonList() {
-    pokeApi = null;
+    _pokeApi = null;
     loadPokeApi().then((pokeList) {
-      pokeApi = pokeList;
+      _pokeApi = pokeList;
     });
   }
 
   @action
   getPokemon({int index}) {
-    return pokeApi.pokemon[index];
+    return _pokeApi.pokemon[index];
   }
 
   @action

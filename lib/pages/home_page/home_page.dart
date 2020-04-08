@@ -6,11 +6,23 @@ import 'package:pokedex/stores/pokeapi.dart';
 import 'widgets/app_bar_home/app_bar_home.dart';
 import 'widgets/pokemon_gridlist/pokemon_gridlist.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PokeApiStore pokeAPiStore = PokeApiStore();
+  @override
+  void initState() {
+    super.initState();
+    if (pokeAPiStore.getPokeApi == null) {
+      pokeAPiStore.getPokemonList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    PokeApiStore pokeAPiStore = PokeApiStore();
-    pokeAPiStore.getPokemonList();
     double screenWidth = MediaQuery.of(context).size.width;
     double statuBarWidth = MediaQuery.of(context).padding.top;
 
@@ -42,7 +54,7 @@ class HomePage extends StatelessWidget {
                     child: Container(
                       child: Observer(
                         builder: (BuildContext context) {
-                          PokeApi _pokeApi = pokeAPiStore.pokeApi;
+                          PokeApi _pokeApi = pokeAPiStore.getPokeApi;
                           return (_pokeApi != null)
                               ? PokemonGridList(_pokeApi)
                               : Center(
