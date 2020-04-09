@@ -14,7 +14,14 @@ abstract class _PokeApiStoreBase with Store {
   @observable
   PokeApi _pokeApi;
 
+  @observable
+  Pokemon _pokemonCurrent;
+
+  @computed
   PokeApi get getPokeApi => _pokeApi;
+
+  @computed
+  Pokemon get pokemonCurrent => _pokemonCurrent;
 
   set setPokeApi(PokeApi pokeApi) {
     _pokeApi = pokeApi;
@@ -29,8 +36,8 @@ abstract class _PokeApiStoreBase with Store {
   }
 
   @action
-  getPokemon({int index}) {
-    return _pokeApi.pokemon[index];
+  setPokemon(Pokemon pokemon) {
+    _pokemonCurrent = pokemon;
   }
 
   @action

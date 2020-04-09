@@ -21,13 +21,16 @@ class PokemonItem extends StatelessWidget {
             right: -10,
             child: Align(
               alignment: Alignment.bottomRight,
-              child: Opacity(
-                child: Image.asset(
-                  ConstsApp.whitePokeball,
-                  height: 90,
-                  width: 90,
+              child: Hero(
+                child: Opacity(
+                  child: Image.asset(
+                    ConstsApp.whitePokeball,
+                    height: 90,
+                    width: 90,
+                  ),
+                  opacity: 0.2,
                 ),
-                opacity: 0.2,
+                tag: this.pokemon.num.toString(),
               ),
             ),
           ),

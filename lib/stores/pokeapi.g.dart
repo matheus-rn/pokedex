@@ -9,6 +9,19 @@ part of 'pokeapi.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PokeApiStore on _PokeApiStoreBase, Store {
+  Computed<PokeApi> _$getPokeApiComputed;
+
+  @override
+  PokeApi get getPokeApi =>
+      (_$getPokeApiComputed ??= Computed<PokeApi>(() => super.getPokeApi))
+          .value;
+  Computed<Pokemon> _$pokemonCurrentComputed;
+
+  @override
+  Pokemon get pokemonCurrent => (_$pokemonCurrentComputed ??=
+          Computed<Pokemon>(() => super.pokemonCurrent))
+      .value;
+
   final _$_pokeApiAtom = Atom(name: '_PokeApiStoreBase._pokeApi');
 
   @override
@@ -26,6 +39,23 @@ mixin _$PokeApiStore on _PokeApiStoreBase, Store {
     }, _$_pokeApiAtom, name: '${_$_pokeApiAtom.name}_set');
   }
 
+  final _$_pokemonCurrentAtom = Atom(name: '_PokeApiStoreBase._pokemonCurrent');
+
+  @override
+  Pokemon get _pokemonCurrent {
+    _$_pokemonCurrentAtom.context.enforceReadPolicy(_$_pokemonCurrentAtom);
+    _$_pokemonCurrentAtom.reportObserved();
+    return super._pokemonCurrent;
+  }
+
+  @override
+  set _pokemonCurrent(Pokemon value) {
+    _$_pokemonCurrentAtom.context.conditionallyRunInAction(() {
+      super._pokemonCurrent = value;
+      _$_pokemonCurrentAtom.reportChanged();
+    }, _$_pokemonCurrentAtom, name: '${_$_pokemonCurrentAtom.name}_set');
+  }
+
   final _$_PokeApiStoreBaseActionController =
       ActionController(name: '_PokeApiStoreBase');
 
@@ -40,10 +70,10 @@ mixin _$PokeApiStore on _PokeApiStoreBase, Store {
   }
 
   @override
-  dynamic getPokemon({int index}) {
+  dynamic setPokemon(Pokemon pokemon) {
     final _$actionInfo = _$_PokeApiStoreBaseActionController.startAction();
     try {
-      return super.getPokemon(index: index);
+      return super.setPokemon(pokemon);
     } finally {
       _$_PokeApiStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -61,7 +91,8 @@ mixin _$PokeApiStore on _PokeApiStoreBase, Store {
 
   @override
   String toString() {
-    final string = '';
+    final string =
+        'getPokeApi: ${getPokeApi.toString()},pokemonCurrent: ${pokemonCurrent.toString()}';
     return '{$string}';
   }
 }
