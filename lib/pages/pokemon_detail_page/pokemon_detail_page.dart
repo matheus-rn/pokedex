@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:md2_tab_indicator/md2_tab_indicator.dart';
 import 'package:pokedex/consts/consts_api.dart';
 import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/models/pokeApi.dart';
@@ -8,6 +9,8 @@ import 'package:pokedex/stores/pokeapi.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:simple_animations/simple_animations/multi_track_tween.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
+
+import 'about_pokemon/about_pokemon.dart';
 
 class PokemonDetailPage extends StatelessWidget {
   final PokeApi pokeApi;
@@ -23,8 +26,8 @@ class PokemonDetailPage extends StatelessWidget {
     MultiTrackTween _animation = MultiTrackTween(
       [
         Track("rotation").add(
-          Duration(seconds: 5),
-          Tween(begin: 0.0, end: 6.0),
+          Duration(seconds: 10),
+          Tween(begin: 0.0, end: 0.0),
           curve: Curves.linear,
         ),
       ],
@@ -79,19 +82,9 @@ class PokemonDetailPage extends StatelessWidget {
               );
             },
           ),
-          SlidingSheet(
-            elevation: 8,
-            cornerRadius: 20,
-            snapSpec: const SnapSpec(
-              snap: true,
-              snappings: [0.7, 1.0],
-              positioning: SnapPositioning.relativeToAvailableSpace,
-            ),
-            builder: (context, state) {
-              return Container(
-                height: MediaQuery.of(context).size.height,
-              );
-            },
+          Padding(
+            padding: const EdgeInsets.only(top: 170),
+            child: AboutPokemon(pokeAPiStore),
           ),
           Positioned(
             child: SizedBox(
@@ -116,27 +109,30 @@ class PokemonDetailPage extends StatelessWidget {
                                 child: Opacity(
                                   child: Image.asset(
                                     ConstsApp.whitePokeball,
-                                    height: 300,
-                                    width: 300,
+                                    height: 180,
+                                    width: 180,
                                   ),
                                   opacity: 0.2,
                                 ),
-                                tag: i.toString(),
+                                tag: '',
                               ),
                               angle: animation['rotation'],
                             );
                           }),
                       Positioned(
                         top: 50,
-                        child: CachedNetworkImage(
-                          height: 140,
-                          width: 150,
-                          placeholder: (context, url) => Container(
-                            color: Colors.transparent,
+                        child: Hero(
+                          child: CachedNetworkImage(
+                            height: 140,
+                            width: 150,
+                            placeholder: (context, url) => Container(
+                              color: Colors.transparent,
+                            ),
+                            imageUrl:
+                                "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/" +
+                                    "images/${pokeApi.pokemon[i].num}.png",
                           ),
-                          imageUrl:
-                              "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/" +
-                                  "images/${pokeApi.pokemon[i].num}.png",
+                          tag: pokeApi.pokemon[i].name,
                         ),
                       ),
                     ],
